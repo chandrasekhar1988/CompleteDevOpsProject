@@ -2,15 +2,20 @@
   become: true
   tasks:
     - name: Install Docker Repository
-      yum_repository:
-        name: docker-ce-stable
-        description: Docker CE Stable - x86_64
-        baseurl: https://download.docker.com/linux/centos/docker-ce.repo
-    - name: Install Docker Engine
-      yum:
-        name: docker-ce
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+
+    - name: Install Docker Engine on CentOS
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
         state: present
-    - name: Start Docker Service
+        nobest: true
+
+    - name: Start and Enable Docker Service
       service:
         name: docker
         state: started
