@@ -1,6 +1,6 @@
 resource "aws_instance" "servers" {
   count         = 3
-  ami           = "ami-0b4f371983e5706b9"
+  ami           = "ami-0b4f379183e5706b9" 
   instance_type = "t3.small"
 
   tags = {
