@@ -1,0 +1,17 @@
+- hosts: all_servers
+  become: true
+  tasks:
+    - name: Install Docker Repository
+      yum_repository:
+        name: docker-ce-stable
+        description: Docker CE Stable - x86_64
+        baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+    - name: Install Docker Engine
+      yum:
+        name: docker-ce
+        state: present
+    - name: Start Docker Service
+      service:
+        name: docker
+        state: started
+        enabled: yes
